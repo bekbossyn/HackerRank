@@ -17,7 +17,27 @@ class Result {
 
     public static String timeConversion(String s) {
         // Write your code here
-        
+        if (s.charAt(s.length() - 2) == 'P') {
+            int hour = Integer.parseInt(s.substring(0, 2));
+            if (hour != 12)
+                hour += 12;
+            String subs = s.substring(2, s.length() - 2);
+            s = String.valueOf(hour) + subs;
+//            if (hour == 24) {
+//                s = "00" + subs;
+//            } else {
+//                s = String.valueOf(hour) + subs;
+//            }
+        } else {
+            int hour = Integer.parseInt(s.substring(0, 2));
+            if (hour == 12) {
+                s = "00" + s.substring(2);
+            }
+//            hour += 12;
+//            s = String.valueOf(hour) + s.substring(2, s.length() - 2);
+            s = s.substring(0, s.length() - 2);
+        }
+        return s;
     }
 
 }
