@@ -1,10 +1,4 @@
 import java.io.*;
-import java.math.*;
-import java.security.*;
-import java.text.*;
-import java.util.*;
-import java.util.concurrent.*;
-import java.util.regex.*;
 
 class Result {
 
@@ -18,16 +12,60 @@ class Result {
      */
 
     public static long andProduct(long a, long b) {
-        // Write your code here
-        return 0;
-    }
 
+//        long k = 2;
+//        long res = a;
+//        for (long i = a; i <= b; i += k) {
+//            res = res & i;
+//            k = k * 2;
+//        }
+//        return res & b;
+
+        // a = 42 = 101010 110101
+        // b = 57 = 111001 100110
+
+        String aInt = Long.toBinaryString(a);
+        String bInt = Long.toBinaryString(b);
+//        System.out.println(aInt);
+//        System.out.println(bInt);
+        if (aInt.length() != bInt.length()) return 0;
+//        StringBuilder cInt = new StringBuilder();
+        String cInt = "";
+        boolean used = false;
+        for (int i = 0; i < aInt.length(); i++) {
+            if (aInt.charAt(i) == bInt.charAt(i) && used == false)
+                cInt = cInt + aInt.charAt(i);
+//            if (aInt.charAt(i) == '1' && bInt.charAt(i) == '1')
+////                cInt.insert(0, '1');
+//                cInt = '1' + cInt;
+            else
+                used = true;
+//                break;
+        }
+//        while (cInt.length() < aInt.length()) cInt.insert(cInt.length(), '0');
+        while (cInt.length() < aInt.length()) cInt += '0';
+//        String str = cInt.toString();
+//        return Long.parseLong(str, 2);
+        return Long.parseLong(cInt, 2);
+
+        /*
+        long count = 0;
+        long res = a;
+        for (long i = a; i <= b; i++)   {
+            res = res & i;
+            count++;
+            if (count > 1000) break;
+            System.out.println("i: " + i + " result: " + res);
+        }
+        return 0;
+        */
+    }
 }
 
 public class Solution {
     public static void main(String[] args) throws IOException {
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
+//        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("output.txt")));
 
         int n = Integer.parseInt(bufferedReader.readLine().trim());
 
@@ -40,11 +78,12 @@ public class Solution {
 
             long result = Result.andProduct(a, b);
 
-            bufferedWriter.write(String.valueOf(result));
-            bufferedWriter.newLine();
+            System.out.println(result);
+//            bufferedWriter.write(String.valueOf(result));
+//            bufferedWriter.newLine();
         }
 
         bufferedReader.close();
-        bufferedWriter.close();
+//        bufferedWriter.close();
     }
 }
